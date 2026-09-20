@@ -14,3 +14,108 @@ body {
 .auth-page form { display: flex; flex-direction: column; gap: 12px; }
 .auth-page label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
 .error { color: #c62828; white-space: pre-line; }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-title {
+  font-weight: 700;
+  font-size: 18px;
+  flex: 1;
+}
+
+.timeline {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.post-form {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 24px;
+}
+
+.post-form textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  resize: none;
+  font-family: inherit;
+}
+
+.post-form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  color: #999;
+  font-size: 13px;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.post-author {
+  font-weight: 600;
+}
+
+.post-username {
+  color: #999;
+}
+
+.post-date {
+  color: #999;
+  margin-left: auto;
+}
+
+.post-content {
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.post-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.delete-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #c62828;
+  cursor: pointer;
+  font-size: 13px;
+}
