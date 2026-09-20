@@ -9,3 +9,8 @@ body {
   background-color: #f5f5f5;
   color: #333;
 }
+
+.auth-page { max-width: 360px; margin: 48px auto; }
+.auth-page form { display: flex; flex-direction: column; gap: 12px; }
+.auth-page label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.error { color: #c62828; white-space: pre-line; }
