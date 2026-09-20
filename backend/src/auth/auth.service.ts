@@ -1,7 +1,15 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { randomBytes } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
+import { MailService } from '../mail/mail.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { JwtPayload } from './jwt-payload';
@@ -11,6 +19,7 @@ export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly mailService: MailService,
   ) {}
 
   async register(dto: RegisterDto) {
@@ -35,6 +44,14 @@ export class AuthService {
       },
     });
 
+    const token = randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    await this.prisma.emailVerificationToken.create({
+      data: { token, expiresAt, userId: user.id },
+    });
+    await this.mailService.sendVerificationEmail(user.email, token);
+
     return { id: user.id, email: user.email, username: user.username };
   }
 
@@ -47,6 +64,10 @@ export class AuthService {
     const passwordOk = await bcrypt.compare(dto.password, user.passwordHash);
     if (!passwordOk) {
       throw new UnauthorizedException('メールアドレスまたはパスワードが正しくありません');
+    }
+
+    if (!user.emailVerified) {
+      throw new ForbiddenException('メールアドレスの確認が完了していません');
     }
 
     const payload: JwtPayload = { sub: user.id, username: user.username };
@@ -64,5 +85,27 @@ export class AuthService {
       throw new UnauthorizedException('ユーザーが見つかりません');
     }
     return user;
+  }
+
+  async verifyEmail(token: string) {
+    const record = await this.prisma.emailVerificationToken.findUnique({
+      where: { token },
+    });
+    if (!record) {
+      throw new BadRequestException('確認用トークンが正しくありません');
+    }
+    if (record.expiresAt < new Date()) {
+      throw new BadRequestException('確認用トークンの有効期限が切れています');
+    }
+
+    await this.prisma.user.update({
+      where: { id: record.userId },
+      data: { emailVerified: true },
+    });
+    await this.prisma.emailVerificationToken.deleteMany({
+      where: { userId: record.userId },
+    });
+
+    return { message: 'メールアドレスの確認が完了しました' };
   }
 }
