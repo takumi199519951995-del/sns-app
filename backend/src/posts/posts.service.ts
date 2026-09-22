@@ -30,15 +30,16 @@ export class PostsService {
         _count: { select: { likes: true } },
         likes: { where: { userId }, select: { userId: true } },
       },
-    });
+    })as any[];
 
-    return posts.map((post) => ({
-      ...post,
-      likeCount: post._count.likes,
-      likedByMe: post.likes.length > 0,
-      likes: undefined,
-      _count: undefined,
-    }));
+    return posts.map((post) => {
+      const { _count, likes, ...rest } = post;
+      return {
+        ...rest,
+        likeCount: _count.likes,
+        likedByMe: likes.length > 0,
+      };
+    });
   }
 
   async remove(userId: number, postId: number) {

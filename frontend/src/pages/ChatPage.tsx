@@ -111,3 +111,29 @@ export default function ChatPage({ navigate }: Props) {
                   <p className="chat-message-content">{msg.content}</p>
                   <span className="chat-message-time">
                     {new Date(msg.createdAt).toLocaleString("ja-JP")}
+                  </span>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+            <form onSubmit={handleSendMessage} className="chat-form">
+              <input
+                type="text"
+                placeholder="メッセージを入力"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <button type="submit" disabled={!content.trim()}>
+                送信
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="chat-empty">
+            <p>会話を選択してください</p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}

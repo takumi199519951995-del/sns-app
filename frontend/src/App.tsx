@@ -7,6 +7,7 @@ import VerifyEmailPage from "./pages/VerifyEmailPage";
 import TimelinePage from "./pages/TimelinePage";
 import UserPage from "./pages/UserPage";
 import ChatPage from "./pages/ChatPage";
+import SettingsPage from "./pages/SettingsPage";
 import type { User } from "./types";
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
       <nav style={{ display: "flex", gap: "12px", marginLeft: "auto" }}>
         <a href="#/" style={{ textDecoration: "none" }}>タイムライン</a>
         <a href="#/chat" style={{ textDecoration: "none" }}>チャット</a>
+        <a href="#/settings" style={{ textDecoration: "none" }}>設定</a>
       </nav>
       <button onClick={handleLogout}>ログアウト</button>
     </header>
@@ -64,6 +66,15 @@ export default function App() {
       <div>
         <Header />
         <ChatPage navigate={navigate} />
+      </div>
+    );
+  }
+
+  if (path === "/settings") {
+    return (
+      <div>
+        <Header />
+        <SettingsPage navigate={navigate} />
       </div>
     );
   }
