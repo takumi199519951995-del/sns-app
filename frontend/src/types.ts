@@ -20,3 +20,14 @@ export type Post = {
   likeCount: number;
   likedByMe: boolean;
 };
+
+export type UserProfile = {
+  id: number;
+  username: string;
+  displayName: string;
+  bio: string;
+  avatarUrl: string | null;
+  followersCount: number;
+  followingCount: number;
+  isFollowing: boolean;
+};

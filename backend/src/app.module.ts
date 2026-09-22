@@ -6,9 +6,10 @@ import { MailModule } from './mail/mail.module';
 import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
 import { FollowsModule } from './follows/follows.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, MailModule, PostsModule, LikesModule, FollowsModule],
+  imports: [PrismaModule, AuthModule, MailModule, PostsModule, LikesModule, FollowsModule, UsersModule],
   controllers: [AppController],
 })
 export class AppModule {}
