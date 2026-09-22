@@ -20,20 +20,24 @@ export class PostsService {
     });
   }
 
-  async findAll(_userId: number) {
+  async findAll(userId: number) {
     const posts = await this.prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
         author: {
           select: { id: true, username: true, displayName: true, avatarUrl: true },
         },
+        _count: { select: { likes: true } },
+        likes: { where: { userId }, select: { userId: true } },
       },
     });
 
     return posts.map((post) => ({
       ...post,
-      likeCount: 0,
-      likedByMe: false,
+      likeCount: post._count.likes,
+      likedByMe: post.likes.length > 0,
+      likes: undefined,
+      _count: undefined,
     }));
   }
 
