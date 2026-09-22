@@ -53,6 +53,19 @@ export default function TimelinePage({ navigate }: Props) {
     }
   };
 
+  const handleLike = async (post: Post) => {
+    try {
+      if (post.likedByMe) {
+        await apiFetch(`/posts/${post.id}/likes`, { method: "DELETE" });
+      } else {
+        await apiFetch(`/posts/${post.id}/likes`, { method: "POST" });
+      }
+      await fetchPosts();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <main className="timeline">
       <h1>タイムライン</h1>
@@ -86,7 +99,12 @@ export default function TimelinePage({ navigate }: Props) {
             </div>
             <p className="post-content">{post.content}</p>
             <div className="post-footer">
-              <span>❤️ {post.likeCount}</span>
+              <button
+                className={post.likedByMe ? "like-btn liked" : "like-btn"}
+                onClick={() => handleLike(post)}
+              >
+                ❤️ {post.likeCount}
+              </button>
               <button
                 className="delete-btn"
                 onClick={() => handleDelete(post.id)}
