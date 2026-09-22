@@ -31,3 +31,34 @@ export type UserProfile = {
   followingCount: number;
   isFollowing: boolean;
 };
+
+export type Message = {
+  id: number;
+  content: string;
+  conversationId: number;
+  senderId: number;
+  createdAt: string;
+  sender: {
+    id: number;
+    username: string;
+    displayName: string;
+  };
+};
+
+export type Conversation = {
+  id: number;
+  userOneId: number;
+  userTwoId: number;
+  createdAt: string;
+  userOne: {
+    id: number;
+    username: string;
+    displayName: string;
+  };
+  userTwo: {
+    id: number;
+    username: string;
+    displayName: string;
+  };
+  messages: Message[];
+};
