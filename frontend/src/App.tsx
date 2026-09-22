@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import TimelinePage from "./pages/TimelinePage";
 import type { User } from "./types";
+import UserPage from "./pages/UserPage";
 
 export default function App() {
   const { path, navigate } = useHashRoute();
@@ -31,6 +32,20 @@ export default function App() {
     navigate("/login");
   };
 
+
+  if (path.startsWith("/users/")) {
+  const username = path.split("/")[2];
+  return (
+    <div>
+      <header className="header">
+        <span className="header-title" onClick={() => navigate("/")}>SNS</span>
+        {me && <span>@{me.username}</span>}
+        <button onClick={handleLogout}>ログアウト</button>
+      </header>
+      <UserPage username={username} navigate={navigate} />
+    </div>
+  );
+  }
   if (path === "/register") return <RegisterPage />;
   if (path === "/login") return <LoginPage navigate={navigate} />;
   if (path.startsWith("/verify-email")) return <VerifyEmailPage path={path} />;

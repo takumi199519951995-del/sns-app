@@ -119,3 +119,75 @@ body {
   cursor: pointer;
   font-size: 13px;
 }
+
+.user-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.user-profile {
+  display: flex;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #1da1f2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-username {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}
+
+.user-bio {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.user-counts {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.follow-btn {
+  background: #1da1f2;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.unfollow-btn {
+  background: #fff;
+  color: #1da1f2;
+  border: 1px solid #1da1f2;
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
