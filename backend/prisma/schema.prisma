@@ -21,6 +21,8 @@ model User {
   verificationTokens EmailVerificationToken[]
   posts              Post[]
   likes              Like[]
+  following          Follow[] @relation("follower")
+  followers          Follow[] @relation("followee")
 }
 
 model EmailVerificationToken {
@@ -49,4 +51,14 @@ model Like {
   createdAt DateTime @default(now())
 
   @@id([userId, postId])
+}
+
+model Follow {
+  followerId Int
+  followeeId Int
+  follower   User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User     @relation("followee", fields: [followeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([followerId, followeeId])
 }
