@@ -23,6 +23,9 @@ model User {
   likes              Like[]
   following          Follow[] @relation("follower")
   followers          Follow[] @relation("followee")
+  conversationsAsOne  Conversation[] @relation("userOne")
+  conversationsAsTwo  Conversation[] @relation("userTwo")
+  sentMessages        Message[]
 }
 
 model EmailVerificationToken {
@@ -61,4 +64,26 @@ model Follow {
   createdAt  DateTime @default(now())
 
   @@id([followerId, followeeId])
+}
+
+model Conversation {
+  id        Int       @id @default(autoincrement())
+  userOneId Int
+  userTwoId Int
+  userOne   User      @relation("userOne", fields: [userOneId], references: [id], onDelete: Cascade)
+  userTwo   User      @relation("userTwo", fields: [userTwoId], references: [id], onDelete: Cascade)
+  messages  Message[]
+  createdAt DateTime  @default(now())
+
+  @@unique([userOneId, userTwoId])
+}
+
+model Message {
+  id             Int          @id @default(autoincrement())
+  content        String
+  conversationId Int
+  senderId       Int
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
 }
