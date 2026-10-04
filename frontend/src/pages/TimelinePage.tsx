@@ -62,7 +62,7 @@ export default function TimelinePage({ navigate }: Props) {
       }
       await fetchPosts();
     } catch (err) {
-      console.error(err);
+      console.error("いいねエラー:", err);
     }
   };
 

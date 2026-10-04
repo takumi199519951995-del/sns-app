@@ -43,8 +43,16 @@ export async function apiFetch<T>(
     throw new Error(message ?? `エラーが発生しました（${res.status}）`);
   }
 
-  if (res.status === 204) {
+  const contentLength = res.headers.get("content-length");
+  const contentType = res.headers.get("content-type");
+
+  if (
+    res.status === 204 ||
+    contentLength === "0" ||
+    !contentType?.includes("application/json")
+  ) {
     return undefined as T;
   }
+
   return (await res.json()) as T;
 }
