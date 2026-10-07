@@ -7,7 +7,7 @@ type Props = {
   navigate: (to: string) => void;
 };
 
-export default function UserPage({ username, navigate }: Props) {
+export default function UserPage({ username }: Props) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);

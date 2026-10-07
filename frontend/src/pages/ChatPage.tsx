@@ -6,7 +6,7 @@ type Props = {
   navigate: (to: string) => void;
 };
 
-export default function ChatPage({ navigate }: Props) {
+export default function ChatPage(_props: Props) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);

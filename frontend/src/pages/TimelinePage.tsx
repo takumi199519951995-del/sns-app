@@ -6,7 +6,7 @@ type Props = {
   navigate: (to: string) => void;
 };
 
-export default function TimelinePage({ navigate }: Props) {
+export default function TimelinePage(_props: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);

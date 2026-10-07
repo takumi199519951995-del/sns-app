@@ -6,7 +6,7 @@ type Props = {
   navigate: (to: string) => void;
 };
 
-export default function SettingsPage({ navigate }: Props) {
+export default function SettingsPage(_props: Props) {
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [submitting, setSubmitting] = useState(false);
